@@ -1,75 +1,107 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import "./App.css";
+import { initializeApp } from "firebase/app";
+import {
+  getStorage,
+  ref,
+  listAll,
+  getDownloadURL,
+  uploadBytes,
+} from "firebase/storage";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCMC0ckwcjAegoLb8PwqDYmtH0KVK9dAiY",
+  authDomain: "cats-ef561.firebaseapp.com",
+  projectId: "cats-ef561",
+  storageBucket: "cats-ef561.appspot.com",
+  messagingSenderId: "1029282213070",
+  appId: "1:1029282213070:web:a9732b58ee280bb5ea749f",
+};
+
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
 
 export function Home() {
-  const [catPhoto, setCatPhoto] = useState("");
+  const [randomCatPhoto, setRandomCatPhoto] = useState("");
+  const [randomCatPhotoKey, setRandomCatPhotoKey] = useState("");
+  const [isHomeActive, setIsHomeActive] = useState(true);
+
+  const getRandomCatPhoto = async () => {
+    const catPhotosFolder = "images";
+    const storageRef = ref(storage, catPhotosFolder);
+    const photoList = await listAll(storageRef);
+    const photoUrls = await Promise.all(
+      photoList.items.map(async (itemRef) => {
+        const downloadURL = await getDownloadURL(itemRef);
+        return downloadURL;
+      })
+    );
+    const randomIndex = Math.floor(Math.random() * photoUrls.length);
+    setRandomCatPhoto(photoUrls[randomIndex]);
+    setRandomCatPhotoKey(Date.now().toString()); // Генерация нового ключа
+  };
+
   useEffect(() => {
-    const randomCatPhoto = getRandomCatPhoto();
-    setCatPhoto(randomCatPhoto);
+    getRandomCatPhoto();
   }, []);
 
-  const handleCatPhotoChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setCatPhoto(URL.createObjectURL(file));
+  useEffect(() => {
+    if (isHomeActive) {
+      getRandomCatPhoto();
     }
+  }, [isHomeActive]);
+
+  const handleHomeButtonClick = () => {
+    setIsHomeActive(false);
+    setTimeout(() => {
+      setIsHomeActive(true);
+    }, 0);
   };
 
-  const catPhotoCaption = "Here is cat!";
-
-  const getRandomInt = () => {
-    return Math.floor(Math.random() * 10);
-  };
-
-  const getRandomCatPhoto = () => {
-    const randomIndex = getRandomInt();
-    const catPhotosFolder = process.env.PUBLIC_URL + "/images";
-    const catPhotos = [
-      "frida-1.jpg",
-      "frida-2.jpg",
-      "frida-3.jpg",
-      "vishnya-1.jpg",
-      "vishnya-2.jpg",
-      "vishnya-3.jpg",
-      "shishka-1.jpg",
-      "shishka-2.jpg",
-      "shishka-3.jpg",
-    ];
-
-    const randomCatPhotoPath = catPhotosFolder + "/" + catPhotos[randomIndex];
-    return randomCatPhotoPath;
-  };
+  const catPhotoCaption = "Here is a cat!";
 
   return (
-    <div>
-      <div>
-        <button>
+    <div class="navbar">
+      <div class="navbar-top" role="navigation">
+        <button class="navbar-item" onClick={handleHomeButtonClick}>
           <Link to="/">Home</Link>
         </button>
-        <button>
+        <button class="navbar-item">
           <Link to="/about">About</Link>
         </button>
+        <button class="navbar-item">
+          <Link to="/upload">Upload</Link>
+        </button>
       </div>
-      <h2>{catPhotoCaption}</h2>
-      <input type="file" accept="image/*" onChange={handleCatPhotoChange} />
-      {catPhoto && <img src={catPhoto} alt="Cat" />}
+      <section class="cat">
+        <div class="title-centered">
+          <h1 class="title">{catPhotoCaption}</h1>
+        </div>
+      </section>
+      <div class="text-centered">
+        {randomCatPhoto && (
+          <img key={randomCatPhotoKey} src={randomCatPhoto} alt="Кошка" />
+        )}
+      </div>
     </div>
   );
 }
-
 export function About() {
   return (
-    <div>
-      <div>
-        <button>
+    <div class="navbar">
+      <div class="navbar-top" role="navigation">
+        <button class="navbar-item">
           <Link to="/">Home</Link>
         </button>
-        <button>
+        <button class="navbar-item">
           <Link to="/about">About</Link>
         </button>
+        <button class="navbar-item">
+          <Link to="/upload">Upload</Link>
+        </button>
       </div>
-      <h1>About</h1>
+      <h1 class ="title">About</h1>
       <div>
         <h2>Shishka</h2>
         <img
@@ -114,12 +146,79 @@ export function About() {
   );
 }
 
+export function Upload() {
+  const [catPhoto, setCatPhoto] = useState("");
+  const [uploadedCatPhoto, setUploadedCatPhoto] = useState("");
+
+  const handleCatPhotoChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setCatPhoto(URL.createObjectURL(file));
+    }
+  };
+
+  const handleCatPhotoUpload = async () => {
+    const fileInput = document.getElementById("cat-photo-upload");
+    const file = fileInput.files[0];
+
+    if (file) {
+      const catPhotosFolder = "images";
+      const storageRef = ref(storage, catPhotosFolder + "/" + file.name);
+
+      try {
+        await uploadBytes(storageRef, file);
+        const downloadURL = await getDownloadURL(storageRef);
+        setUploadedCatPhoto(downloadURL);
+        alert("Cat photo uploaded successfully!");
+      } catch (error) {
+        console.error("Error uploading cat photo:", error);
+        alert("Failed to upload cat photo. Please try again.");
+      }
+    }
+  };
+
+  return (
+    <div class ="navbar">
+    <div class="navbar-top" role="navigation">
+      <button class="navbar-item">
+        <Link to="/">Home</Link>
+      </button>
+      <button class="navbar-item">
+        <Link to="/about">About</Link>
+      </button>
+      <button class="navbar-item">
+        <Link to="/upload">Upload</Link>
+      </button>
+      </div>
+        <section class="cat">
+        <div class="title-centered">
+        <h1 class = "title">Add your cat</h1>
+        </div>
+      </section>
+       
+         
+      <div class="text-centered">
+        {catPhoto && <img src={catPhoto} alt="Cat" />}
+        <input
+          type="file"
+          id="cat-photo-upload"
+          accept="image/*"
+          onChange={handleCatPhotoChange}
+        />
+        <button onClick={handleCatPhotoUpload}>Загрузить</button>
+        {uploadedCatPhoto && <img src={uploadedCatPhoto} alt="Uploaded Cat" />}
+      </div>
+    
+    </div>);
+}
+
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" Component={Home} />
         <Route path="/about" Component={About} />
+        <Route path="/upload" Component={Upload} />
       </Routes>
     </Router>
   );
