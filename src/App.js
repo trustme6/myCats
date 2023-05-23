@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import "./App.css";
+import "./App.scss";
 import { initializeApp } from "firebase/app";
 import {
   getStorage,
@@ -64,6 +64,14 @@ export function Home() {
   return (
     <div class="navbar">
       <div class="navbar-top" role="navigation">
+        <div class = "navbar-brand">
+        <button class="navbar-item" onClick={handleHomeButtonClick}>
+        <img src={process.env.PUBLIC_URL + '/icons8-f..k-this-thing-80.png'} alt="Icon" />
+          <strong>
+            <Link to="/"> MyCats</Link>
+          </strong>
+        </button>
+        </div>
         <button class="navbar-item" onClick={handleHomeButtonClick}>
           <Link to="/">Home</Link>
         </button>
@@ -83,7 +91,17 @@ export function Home() {
         {randomCatPhoto && (
           <img key={randomCatPhotoKey} src={randomCatPhoto} alt="Кошка" />
         )}
+        <br></br>
+        <br></br>
+        <button class="another-cat" onClick={handleHomeButtonClick}>
+          Give me another cat!
+        </button>
       </div>
+      <footer class="footer">
+        <div class="text-centered">
+          <p> Meow </p>
+        </div>
+      </footer>
     </div>
   );
 }
@@ -91,6 +109,12 @@ export function About() {
   return (
     <div class="navbar">
       <div class="navbar-top" role="navigation">
+        <button class="navbar-item">
+        <img src={process.env.PUBLIC_URL + '/icons8-f..k-this-thing-80.png'} alt="Icon" />
+          <strong>
+            <Link to="/">MyCats</Link>
+          </strong>
+        </button>
         <button class="navbar-item">
           <Link to="/">Home</Link>
         </button>
@@ -101,7 +125,8 @@ export function About() {
           <Link to="/upload">Upload</Link>
         </button>
       </div>
-      <h1 class ="title">About</h1>
+      <div class="content-container">
+      <h1 class="title">About</h1>
       <div>
         <h2>Shishka</h2>
         <img
@@ -142,7 +167,14 @@ export function About() {
           little sisters of Shishka
         </p>
       </div>
+      </div>
+      <footer class="footer">
+        <div class="text-centered">
+          <p> Meow </p>
+        </div>
+      </footer>
     </div>
+  
   );
 }
 
@@ -178,25 +210,30 @@ export function Upload() {
   };
 
   return (
-    <div class ="navbar">
-    <div class="navbar-top" role="navigation">
-      <button class="navbar-item">
-        <Link to="/">Home</Link>
-      </button>
-      <button class="navbar-item">
-        <Link to="/about">About</Link>
-      </button>
-      <button class="navbar-item">
-        <Link to="/upload">Upload</Link>
-      </button>
+    <div class="navbar">
+      <div class="navbar-top" role="navigation">
+        <button class="navbar-item">
+        <img src={process.env.PUBLIC_URL + '/icons8-f..k-this-thing-80.png'} alt="Icon" />
+          <strong>
+            <Link to="/">MyCats</Link>
+          </strong>
+        </button>
+        <button class="navbar-item">
+          <Link to="/">Home</Link>
+        </button>
+        <button class="navbar-item">
+          <Link to="/about">About</Link>
+        </button>
+        <button class="navbar-item">
+          <Link to="/upload">Upload</Link>
+        </button>
       </div>
-        <section class="cat">
+      <section class="cat">
         <div class="title-centered">
-        <h1 class = "title">Add your cat</h1>
+          <h1 class="title">Add your cat</h1>
         </div>
       </section>
-       
-         
+
       <div class="text-centered">
         {catPhoto && <img src={catPhoto} alt="Cat" />}
         <input
@@ -208,8 +245,13 @@ export function Upload() {
         <button onClick={handleCatPhotoUpload}>Загрузить</button>
         {uploadedCatPhoto && <img src={uploadedCatPhoto} alt="Uploaded Cat" />}
       </div>
-    
-    </div>);
+      <footer class="footer">
+        <div class="text-centered">
+          <p> Meow</p>
+        </div>
+      </footer>
+    </div>
+  );
 }
 
 function App() {
