@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { About, Home, Upload } from './App';
+import {  Upload } from './App';
+import { Home } from './routes/Home';
+import { About } from './routes/About';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -15,7 +17,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/about",
-    element: <About/>
+    element: <About />
   },
   {
     path: "/upload",
@@ -25,7 +27,7 @@ const router = createBrowserRouter([
 ]);
 
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root') as Element );
 root.render(
 
   <React.StrictMode>
