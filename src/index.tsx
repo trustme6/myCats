@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import {  Upload } from './App';
 import { Home } from './routes/Home';
 import { About } from './routes/About';
+import { Upload } from './routes/Upload';
 import {
   createBrowserRouter,
   RouterProvider,
