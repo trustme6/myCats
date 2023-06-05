@@ -7,17 +7,25 @@ import { storage } from "../App";
 import { Global } from '@emotion/react';
 import { lightStyles} from "../lightStyles";
 import { darkStyles } from "../darkStyles";
+import Footer from "../footer";
 
 export function Upload() {
   const [catPhoto, setCatPhoto] = useState("");
   const [uploadedCatPhoto, setUploadedCatPhoto] = useState("");
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [logoImage, setLogoImage] = useState("/logo-light");
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.getItem("darkMode") === "true"
+  );
+  const [logoImage, setLogoImage] = useState(
+    isDarkMode ? "/logo-dark.png" : "/logo-light.png"
+  );
 
-  useEffect(() => {
+
+useEffect(() => {
+    localStorage.setItem("darkMode", String(isDarkMode));
     const newLogoImage = isDarkMode ? "/logo-dark.png" : "/logo-light.png";
     setLogoImage(newLogoImage);
   }, [isDarkMode]);
+  
 
   const handleDarkModeToggle = () => {
     setIsDarkMode(!isDarkMode);
@@ -60,12 +68,14 @@ export function Upload() {
     <Global styles={isDarkMode ? darkStyles : lightStyles} />
     <div className="navbar">
       <div className="navbar-top" role="navigation">
+      <div className="navbar-brand">
         <button className="navbar-item">
           <img src={process.env.PUBLIC_URL + logoImage} alt="Icon" />
           <strong>
             <Link to="/">MyCats</Link>
           </strong>
         </button>
+        </div>
         <div className="navbar-menu">
           <div className="navbar-start">
             <button className="navbar-item">
@@ -106,11 +116,7 @@ export function Upload() {
         <button onClick={handleCatPhotoUpload}>Загрузить</button>
         {uploadedCatPhoto && <img src={uploadedCatPhoto} alt="Uploaded Cat" />}
       </div>
-      <footer className="footer">
-        <div className="text-centered">
-          <p> Meow</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
     </>
   );

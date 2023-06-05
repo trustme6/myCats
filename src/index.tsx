@@ -1,14 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import { Home } from './routes/Home';
-import { About } from './routes/About';
-import { Upload } from './routes/Upload';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { Home } from "./routes/Home";
+import { About } from "./routes/About";
+import { Upload } from "./routes/Upload";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
@@ -17,23 +13,17 @@ const router = createBrowserRouter([
   },
   {
     path: "/about",
-    element: <About />
+    element: <About />,
   },
   {
     path: "/upload",
-    element: <Upload/>
-  }
-
+    element: <Upload />,
+  },
 ]);
 
-
-const root = ReactDOM.createRoot(document.getElementById('root') as Element );
+const root = ReactDOM.createRoot(document.getElementById("root") as Element);
 root.render(
-
   <React.StrictMode>
-     <RouterProvider router={router} />
+    <RouterProvider router={router} />
   </React.StrictMode>
-
 );
-
-
