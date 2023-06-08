@@ -2,10 +2,10 @@ import { css } from "@emotion/react";
 
 export const commonStyles = css`
   .navbar {
-    padding-top: 3.25rem;
+    padding-top: 52px;
 
     &-top {
-      position: fixed;
+      position: absolute;
       align-items: stretch;
       display: flex;
       top: 0;
@@ -13,6 +13,7 @@ export const commonStyles = css`
       right: 0;
       width: 100%; 
       z-index: 30;
+      
     }
 
     &-menu {
@@ -129,7 +130,7 @@ export const commonStyles = css`
       text-align: center;
 
       img {
-        height: 30rem;
+        height: 40rem;
       }
     }
 
@@ -206,7 +207,7 @@ export const commonStyles = css`
     }
 
     .footer {
-      padding: 3rem 1.5rem 3rem;
+      padding: 24px 24px;
       position: fixed;
       margin-top: -20rem;
       bottom: 0;

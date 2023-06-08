@@ -64,18 +64,24 @@ export const Home = () => {
       <div className="navbar">
         <div className="navbar-top" role="navigation">
           <div className="navbar-brand">
-            <button className="navbar-item" onClick={handleHomeButtonClick}>
+            <Link
+              to="/"
+              className="navbar-item"
+              onClick={handleHomeButtonClick} >
               <img src={process.env.PUBLIC_URL + logoImage} alt="Icon" />
-              <strong>
-                <Link to="/"> MyCats</Link>
-              </strong>
-            </button>
+
+              <strong>MyCats</strong>
+            </Link>
           </div>
           <div className="navbar-menu">
             <div className="navbar-start">
-              <button className="navbar-item" onClick={handleHomeButtonClick}>
-                <Link to="/">Home</Link>
-              </button>
+              <Link
+                to="/"
+                className="navbar-item"
+                onClick={handleHomeButtonClick}
+              >
+                Home
+              </Link>
 
               <Link to="/about" className="navbar-item">
                 About
@@ -86,10 +92,8 @@ export const Home = () => {
               </Link>
             </div>
             <div className="navbar-end">
-              <button className="navbar-item">
-                <button className="is-dark" onClick={handleDarkModeToggle}>
-                  <strong>{isDarkMode ? "Light mode" : "Dark mode"}</strong>
-                </button>
+              <button className="is-dark" onClick={handleDarkModeToggle}>
+                <strong>{isDarkMode ? "Light mode" : "Dark mode"}</strong>
               </button>
             </div>
           </div>

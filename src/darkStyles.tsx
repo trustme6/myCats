@@ -45,7 +45,10 @@ ${commonStyles}
     
     }
 
-   
+    .text-centered {
+      color: white;
+    }
+
 
     .content-container {
       background-color: hsl(0, 0%, 14%);
