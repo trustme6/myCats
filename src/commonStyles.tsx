@@ -11,9 +11,8 @@ export const commonStyles = css`
       top: 0;
       left: 0;
       right: 0;
-      width: 100%; 
+      width: 100%;
       z-index: 30;
-      
     }
 
     &-menu {
@@ -21,17 +20,24 @@ export const commonStyles = css`
       flex-grow: 1;
       flex-shrink: 0;
       align-items: stretch;
+
+      img{
+        max-height: 1.75rem;
+      }
     }
+
     &-start {
       display: flex;
       justify-content: flex-start;
       margin-right: auto;
     }
+
     &-end {
       display: flex;
       justify-content: flex-end;
       margin-left: auto;
     }
+
     &-brand {
       align-items: stretch;
       display: flex;
@@ -56,6 +62,7 @@ export const commonStyles = css`
       &:visited {
         text-decoration: none;
       }
+
       &:hover {
         color: #3273dc;
       }
@@ -68,10 +75,9 @@ export const commonStyles = css`
         font-size: 16px;
         text-decoration: none;
 
-
         &:hover {
-            color: #3273dc;
-          }
+          color: #3273dc;
+        }
       }
     }
 
@@ -89,7 +95,6 @@ export const commonStyles = css`
       padding: 0.5rem 0.75rem;
       position: relative;
       transition: background-color 0.3s ease;
-
       text-decoration: none;
       padding-bottom: calc(0.375em - 1px);
       padding-top: calc(0.375em - 1px);
@@ -120,7 +125,7 @@ export const commonStyles = css`
     }
 
     .title {
-        color: #4a4a4a;
+      color: #4a4a4a;
       font-size: 2rem;
       font-weight: 600;
       line-height: 1.125;
@@ -214,6 +219,25 @@ export const commonStyles = css`
       overflow: hidden;
       width: 100%;
     }
+  }
+  @media (max-width: 1024px) {
+    .is-hidden-desktop {
+      display: none;
+    }
+  }
+  .small-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .small-screen .cat-image {
+    order: 1;
+  }
+  
+  .small-screen .cat-description {
+    order: 2;
   }
 `;
 
