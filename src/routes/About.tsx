@@ -4,22 +4,28 @@ import { Global } from "@emotion/react";
 import { lightStyles } from "../lightStyles";
 import { darkStyles } from "../darkStyles";
 import Footer from "../footer";
+import Modal from "../modal";
+import NavbarEnd from "../navbarEnd";
+import MenuItems from "../menuItems";
 
 const catInfoData = [
   {
     name: "Shishka",
+    about: "A silence killer",
     image: "/images/shishka-1.jpg",
     description:
       "She will always support in difficult times. She has a complex character that makes life more interesting. Can scare a sudden appearance from around the corner. The oldest of the cats.",
   },
   {
     name: "Vishnya",
+    about: "Good but crazy",
     image: "/images/vishnya-2.jpg",
     description:
       "Wakes up better than any alarm clock. Extremely affectionate and endearing. She looks at the world more widely because of her big eyes and plays with pleasure even with people who are not shy. Sometimes she sleeps in positions that deny physics. One of the little sisters of Shishka.",
   },
   {
     name: "Frida",
+    about: "Cup of freeducchio",
     image: "/images/frida-3.jpg",
     description:
       "Purrs like a tractor. The plumpest of the cats with the noblest fur. Loves being petted in the shower. An efficient predator that can prey on anything that moves, but often sleeps sweetly on her cardboard couch, in which otherwise she does not fit completely. One of the little sisters of Shishka.",
@@ -33,7 +39,7 @@ export function About() {
   const [logoImage, setLogoImage] = useState(
     isDarkMode ? "/logo-dark.png" : "/logo-light.png"
   );
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1080);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1024);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuButtonVisible, setIsMenuButtonVisible] = useState(isSmallScreen);
 
@@ -45,9 +51,9 @@ export function About() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 1080);
-      setIsMenuButtonVisible(window.innerWidth < 1080);
-      if (window.innerWidth >= 1080) {
+      setIsSmallScreen(window.innerWidth < 1024);
+      setIsMenuButtonVisible(window.innerWidth < 1024);
+      if (window.innerWidth >= 1024) {
         setIsModalOpen(false);
       }
     };
@@ -67,24 +73,7 @@ export function About() {
     setIsModalOpen(!isModalOpen);
   };
 
-  const menuItems = (
-    <>
-      <Link to="/" className="navbar-item">
-        Home
-      </Link>
-      <Link to="/about" className="navbar-item">
-        About
-      </Link>
-      <Link to="/upload" className="navbar-item">
-        Upload
-      </Link>
-      {isSmallScreen && (
-        <button className="is-dark" onClick={handleDarkModeToggle}>
-          <strong>{isDarkMode ? "Light mode" : "Dark mode"}</strong>
-        </button>
-      )}
-    </>
-  );
+  
   return (
     <>
       <Global styles={isDarkMode ? darkStyles : lightStyles} />
@@ -97,31 +86,26 @@ export function About() {
             </Link>
           </div>
           <div className="navbar-menu">
-            <div className="navbar-start">{!isSmallScreen && menuItems}</div>
-            <div className="navbar-end">
-              {isMenuButtonVisible && (
-                <button className="is-dark" onClick={handleModalToggle}>
-
-
-                   <img src={process.env.PUBLIC_URL + "/fish-bone-menu.png"} alt="Icon" />
-
-
-                </button>
-              )}
+          <div className="navbar-start">
               {!isSmallScreen && (
-                <button className="is-dark" onClick={handleDarkModeToggle}>
-                  <strong>{isDarkMode ? "Light mode" : "Dark mode"}</strong>
-                </button>
+                <MenuItems
+                  isSmallScreen={isSmallScreen}
+                  isDarkMode={isDarkMode}
+                  handleDarkModeToggle={handleDarkModeToggle}
+                />
               )}
             </div>
+            <NavbarEnd
+              isMenuButtonVisible={isMenuButtonVisible}
+              isSmallScreen={isSmallScreen}
+              handleModalToggle={handleModalToggle}
+              handleDarkModeToggle={handleDarkModeToggle}
+              isDarkMode={isDarkMode}
+            />
           </div>
         </div>
 
-        {isModalOpen && (
-          <div className="modal">
-            <div className="modal-content">{menuItems}</div>
-          </div>
-        )}
+        <Modal isModalOpen={isModalOpen} menuItems={<MenuItems isSmallScreen={isSmallScreen} isDarkMode={isDarkMode} handleDarkModeToggle={handleDarkModeToggle} />} />
 
         <section className="cat">
           <div className="title-centered">
@@ -131,7 +115,10 @@ export function About() {
 
         <div className="content-container">
           {catInfoData.map((cat, index) => (
-           <div className={`cat-info ${isSmallScreen ? 'small-screen' : ''}`} key={index}>
+            <div
+              className={`cat-info ${isSmallScreen ? "small-screen" : ""}`}
+              key={index}
+            >
               <div className="cat-image">
                 <h2>{cat.name}</h2>
                 <img
@@ -140,7 +127,7 @@ export function About() {
                 />
               </div>
               <div className="cat-description">
-                <h2>{cat.name}</h2>
+                <h2>{cat.about}</h2>
                 <p>{cat.description}</p>
               </div>
             </div>

@@ -21,7 +21,7 @@ export const commonStyles = css`
       flex-shrink: 0;
       align-items: stretch;
 
-      img{
+      img {
         max-height: 1.75rem;
       }
     }
@@ -135,10 +135,18 @@ export const commonStyles = css`
       text-align: center;
 
       img {
+        object-fit: cover;
         height: 40rem;
+        width: 40rem;
+      }
+      @media (max-width: 1024px) {
+        img {
+          height: 30rem;
+          width: 30rem;
+        }
       }
     }
-
+    
     .another-cat {
       font-family: "Segoe UI";
       background-color: #3273dc;
@@ -194,6 +202,15 @@ export const commonStyles = css`
           }
         }
 
+        @media (max-width: 1024px) {
+          .cat-image {
+            img {
+              width: 300px;
+              height: 300px;
+            }
+          }
+        }
+
         .cat-description {
           flex: 0 0 25%;
           display: flex;
@@ -231,11 +248,11 @@ export const commonStyles = css`
     align-items: center;
     text-align: center;
   }
-  
+
   .small-screen .cat-image {
     order: 1;
   }
-  
+
   .small-screen .cat-description {
     order: 2;
   }

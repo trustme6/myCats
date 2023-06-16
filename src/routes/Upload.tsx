@@ -9,6 +9,9 @@ import { Global } from "@emotion/react";
 import { lightStyles } from "../lightStyles";
 import { darkStyles } from "../darkStyles";
 import Footer from "../footer";
+import Modal from "../modal";
+import NavbarEnd from "../navbarEnd";
+import MenuItems from "../menuItems";
 
 export function Upload() {
   const [catPhoto, setCatPhoto] = useState("");
@@ -20,7 +23,7 @@ export function Upload() {
     isDarkMode ? "/logo-dark.png" : "/logo-light.png"
   );
 
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1080);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1024);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuButtonVisible, setIsMenuButtonVisible] = useState(isSmallScreen);
 
@@ -33,9 +36,9 @@ export function Upload() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 1080);
-      setIsMenuButtonVisible(window.innerWidth < 1080);
-      if (window.innerWidth >= 1080) {
+      setIsSmallScreen(window.innerWidth < 1024);
+      setIsMenuButtonVisible(window.innerWidth < 1024);
+      if (window.innerWidth >= 1024) {
         setIsModalOpen(false);
       }
     };
@@ -89,24 +92,7 @@ export function Upload() {
     }
   };
 
-  const menuItems = (
-    <>
-      <Link to="/" className="navbar-item">
-        Home
-      </Link>
-      <Link to="/about" className="navbar-item">
-        About
-      </Link>
-      <Link to="/upload" className="navbar-item">
-        Upload
-      </Link>
-      {isSmallScreen && (
-        <button className="is-dark" onClick={handleDarkModeToggle}>
-          <strong>{isDarkMode ? "Light mode" : "Dark mode"}</strong>
-        </button>
-      )}
-    </>
-  );
+
 
   return (
     <>
@@ -120,31 +106,26 @@ export function Upload() {
             </Link>
           </div>
           <div className="navbar-menu">
-          <div className="navbar-start">{!isSmallScreen && menuItems}</div>
-            <div className="navbar-end">
-              {isMenuButtonVisible && (
-                <button className="is-dark" onClick={handleModalToggle}>
-
-
-                   <img src={process.env.PUBLIC_URL + "/fish-bone-menu.png"} alt="Icon" />
-
-
-                </button>
-              )}
+          <div className="navbar-start">
               {!isSmallScreen && (
-                <button className="is-dark" onClick={handleDarkModeToggle}>
-                  <strong>{isDarkMode ? "Light mode" : "Dark mode"}</strong>
-                </button>
+                <MenuItems
+                  isSmallScreen={isSmallScreen}
+                  isDarkMode={isDarkMode}
+                  handleDarkModeToggle={handleDarkModeToggle}
+                />
               )}
             </div>
+          <NavbarEnd
+              isMenuButtonVisible={isMenuButtonVisible}
+              isSmallScreen={isSmallScreen}
+              handleModalToggle={handleModalToggle}
+              handleDarkModeToggle={handleDarkModeToggle}
+              isDarkMode={isDarkMode}
+            />
           </div>
         </div>
 
-        {isModalOpen && (
-          <div className="modal">
-            <div className="modal-content">{menuItems}</div>
-          </div>
-        )}
+        <Modal isModalOpen={isModalOpen} menuItems={<MenuItems isSmallScreen={isSmallScreen} isDarkMode={isDarkMode} handleDarkModeToggle={handleDarkModeToggle} />} />
         <section className="cat">
           <div className="title-centered">
             <h1 className="title">Add your cat</h1>
