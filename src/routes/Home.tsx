@@ -9,6 +9,7 @@ import Footer from "../footer";
 import Modal from "../modal";
 import NavbarEnd from "../navbarEnd";
 import MenuItems from "../menuItems";
+import { useBreakpoints } from "../hooks/useBreakpoints";
 
 export const Home = () => {
   const [randomCatPhoto, setRandomCatPhoto] = useState("");
@@ -16,8 +17,11 @@ export const Home = () => {
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem("darkMode") === "true"
   );
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1080);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+const {isSmallScreen} = useBreakpoints(); 
+
   const [isMenuButtonVisible, setIsMenuButtonVisible] = useState(isSmallScreen);
 
   const logoImage = isDarkMode ? "/logo-dark.png" : "/logo-light.png";
@@ -37,21 +41,14 @@ export const Home = () => {
     setRandomCatPhotoKey(Date.now().toString());
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 1024);
-      setIsMenuButtonVisible(window.innerWidth < 1024);
-      if (window.innerWidth >= 1024) {
-        setIsModalOpen(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+useEffect (()=>{
+if(isSmallScreen){
+  setIsMenuButtonVisible(true); 
+}else{
+  setIsModalOpen(false);
+  setIsMenuButtonVisible(false);
+}
+},[isSmallScreen])
 
   useEffect(() => {
     getRandomCatPhoto();
