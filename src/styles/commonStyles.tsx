@@ -1,8 +1,10 @@
 import { css } from "@emotion/react";
 
 export const commonStyles = css`
+
   .navbar {
     padding-top: 52px;
+   
 
     &-top {
       position: absolute;
@@ -228,13 +230,20 @@ export const commonStyles = css`
       }
     }
 
+
+
+
+    
     .footer {
-      padding: 24px 24px;
-      position: fixed;
+      padding: 16px ;
       margin-top: -20rem;
       bottom: 0;
       overflow: hidden;
-      width: 100%;
+    position: fixed;
+    width: 100%;
+
+
+    
     }
   }
   @media (max-width: 1024px) {

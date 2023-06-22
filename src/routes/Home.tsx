@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { storage } from "../App";
+import { storage } from "../FirebaseApp";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { Global } from "@emotion/react";
-import { lightStyles } from "../lightStyles";
-import { darkStyles } from "../darkStyles";
-import Footer from "../footer";
-import Modal from "../modal";
-import NavbarEnd from "../navbarEnd";
-import MenuItems from "../menuItems";
+
+
 import { useBreakpoints } from "../hooks/useBreakpoints";
+import MenuItems from "../components/menuItems";
+import NavbarEnd from "../components/navbarEnd";
+import Modal from "../components/modal";
+import Footer from "../components/footer";
+import { darkStyles } from "../styles/darkStyles";
+import { lightStyles } from "../styles/lightStyles";
 
 export const Home = () => {
   const [randomCatPhoto, setRandomCatPhoto] = useState("");
@@ -26,7 +28,7 @@ export const Home = () => {
 
   const [catPhotos, setCatPhotos] = useState<string[]>([]);
 
-  const logoImage = isDarkMode ? "/logo-dark.png" : "/logo-light.png";
+  const logoImage = isDarkMode ? "icons/logo-dark.png" : "icons/logo-light.png";
 
   const getRandomCatPhoto = async () => {
     const randomIndex = Math.floor(Math.random() * catPhotos.length);

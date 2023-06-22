@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Global } from "@emotion/react";
-import { lightStyles } from "../lightStyles";
-import { darkStyles } from "../darkStyles";
-import Footer from "../footer";
-import Modal from "../modal";
-import NavbarEnd from "../navbarEnd";
-import MenuItems from "../menuItems";
+
+import MenuItems from "../components/menuItems";
+import NavbarEnd from "../components/navbarEnd";
+import Modal from "../components/modal";
+import Footer from "../components/footer";
+import { darkStyles } from "../styles/darkStyles";
+import { lightStyles } from "../styles/lightStyles";
+
 
 const catInfoData = [
   {
@@ -19,14 +21,14 @@ const catInfoData = [
   {
     name: "Vishnya",
     about: "Good but crazy",
-    image: "/images/vishnya-2.jpg",
+    image: "/images/vishnya-1.jpg",
     description:
       "Wakes up better than any alarm clock. Extremely affectionate and endearing. She looks at the world more widely because of her big eyes and plays with pleasure even with people who are not shy. Sometimes she sleeps in positions that deny physics. One of the little sisters of Shishka.",
   },
   {
     name: "Frida",
     about: "Cup of freeducchio",
-    image: "/images/frida-3.jpg",
+    image: "/images/frida-1.jpg",
     description:
       "Purrs like a tractor. The plumpest of the cats with the noblest fur. Loves being petted in the shower. An efficient predator that can prey on anything that moves, but often sleeps sweetly on her cardboard couch, in which otherwise she does not fit completely. One of the little sisters of Shishka.",
   },
@@ -45,7 +47,7 @@ export function About() {
 
   useEffect(() => {
     localStorage.setItem("darkMode", String(isDarkMode));
-    const newLogoImage = isDarkMode ? "/logo-dark.png" : "/logo-light.png";
+    const newLogoImage = isDarkMode ? "icons/logo-dark.png" : "icons/logo-light.png";
     setLogoImage(newLogoImage);
   }, [isDarkMode]);
 

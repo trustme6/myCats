@@ -19,6 +19,11 @@ ${commonStyles}
 
     a {
       color: #4a4a4a;
+      &:visited{
+        color: #4a4a4a;
+        
+        text-decoration: none;
+       }
      
     }
     &:hover {

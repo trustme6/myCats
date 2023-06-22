@@ -3,15 +3,17 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
-import { storage } from "../App";
+import { storage } from "../FirebaseApp";
 
 import { Global } from "@emotion/react";
-import { lightStyles } from "../lightStyles";
-import { darkStyles } from "../darkStyles";
-import Footer from "../footer";
-import Modal from "../modal";
-import NavbarEnd from "../navbarEnd";
-import MenuItems from "../menuItems";
+
+import MenuItems from "../components/menuItems";
+import NavbarEnd from "../components/navbarEnd";
+import Modal from "../components/modal";
+import Footer from "../components/footer";
+import { darkStyles } from "../styles/darkStyles";
+import { lightStyles } from "../styles/lightStyles";
+
 
 export function Upload() {
   const [catPhoto, setCatPhoto] = useState("");
@@ -30,7 +32,7 @@ export function Upload() {
 
   useEffect(() => {
     localStorage.setItem("darkMode", String(isDarkMode));
-    const newLogoImage = isDarkMode ? "/logo-dark.png" : "/logo-light.png";
+    const newLogoImage = isDarkMode ? "icons/logo-dark.png" : "icons/logo-light.png";
     setLogoImage(newLogoImage);
   }, [isDarkMode]);
 

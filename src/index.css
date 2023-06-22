@@ -13,7 +13,7 @@ body {
   -ms-text-size-adjust: 100%;
   text-size-adjust: 100%;
   margin: 0;
-  font-family: "Segoe UI";
+  font-family: "Segoe UI","Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 code {
