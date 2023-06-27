@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+
 import { storage } from "../FirebaseApp";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { Global } from "@emotion/react";
 
-
 import { useBreakpoints } from "../hooks/useBreakpoints";
-import MenuItems from "../components/menuItems";
-import NavbarEnd from "../components/navbarEnd";
-import Modal from "../components/modal";
+
 import Footer from "../components/footer";
 import { darkStyles } from "../styles/darkStyles";
 import { lightStyles } from "../styles/lightStyles";
+import { NavbarTop } from "../components/navbarTop";
 
 export const Home = () => {
   const [randomCatPhoto, setRandomCatPhoto] = useState("");
@@ -20,15 +18,9 @@ export const Home = () => {
     localStorage.getItem("darkMode") === "true"
   );
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const { isSmallScreen } = useBreakpoints();
 
-  const [isMenuButtonVisible, setIsMenuButtonVisible] = useState(isSmallScreen);
-
   const [catPhotos, setCatPhotos] = useState<string[]>([]);
-
-  const logoImage = isDarkMode ? "icons/logo-dark.png" : "icons/logo-light.png";
 
   const getRandomCatPhoto = async () => {
     const randomIndex = Math.floor(Math.random() * catPhotos.length);
@@ -51,15 +43,6 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    if (isSmallScreen) {
-      setIsMenuButtonVisible(true);
-    } else {
-      setIsModalOpen(false);
-      setIsMenuButtonVisible(false);
-    }
-  }, [isSmallScreen]);
-
-  useEffect(() => {
     getCatPhotos();
   }, []);
 
@@ -72,60 +55,11 @@ export const Home = () => {
 
   const catPhotoCaption = "Here is a cat!";
 
-  const handleDarkModeToggle = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
-  const handleModalToggle = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-
   return (
     <>
       <Global styles={isDarkMode ? darkStyles : lightStyles} />
-      <div className="navbar">
-        <div className="navbar-top" role="navigation">
-          <div className="navbar-brand">
-            <Link
-              to="/"
-              className="navbar-item"
-              onClick={() => getRandomCatPhoto()}
-            >
-              <img src={process.env.PUBLIC_URL + logoImage} alt="Icon" />
-              <strong>MyCats</strong>
-            </Link>
-          </div>
-          <div className="navbar-menu">
-            <div className="navbar-start">
-              {!isSmallScreen && (
-                <MenuItems
-                  isSmallScreen={isSmallScreen}
-                  isDarkMode={isDarkMode}
-                  handleDarkModeToggle={handleDarkModeToggle}
-                />
-              )}
-            </div>
-            <NavbarEnd
-              isMenuButtonVisible={isMenuButtonVisible}
-              isSmallScreen={isSmallScreen}
-              handleModalToggle={handleModalToggle}
-              handleDarkModeToggle={handleDarkModeToggle}
-              isDarkMode={isDarkMode}
-            />
-          </div>
-        </div>
-
-        <Modal
-          isModalOpen={isModalOpen}
-          menuItems={
-            <MenuItems
-              isSmallScreen={isSmallScreen}
-              isDarkMode={isDarkMode}
-              handleDarkModeToggle={handleDarkModeToggle}
-            />
-          }
-        />
-
+      <div className="main">
+        <NavbarTop />
         <section className="cat">
           <div className="title-centered">
             <h1 className="title">{catPhotoCaption}</h1>
@@ -142,7 +76,7 @@ export const Home = () => {
             Give me another cat!
           </button>
         </div>
-        <Footer />
+        <Footer isDarkMode={isDarkMode} />
       </div>
     </>
   );

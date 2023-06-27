@@ -7,13 +7,13 @@ import { storage } from "../FirebaseApp";
 
 import { Global } from "@emotion/react";
 
+import { useBreakpoints } from "../hooks/useBreakpoints";
 import MenuItems from "../components/menuItems";
 import NavbarEnd from "../components/navbarEnd";
 import Modal from "../components/modal";
 import Footer from "../components/footer";
 import { darkStyles } from "../styles/darkStyles";
 import { lightStyles } from "../styles/lightStyles";
-
 
 export function Upload() {
   const [catPhoto, setCatPhoto] = useState("");
@@ -25,37 +25,30 @@ export function Upload() {
     isDarkMode ? "/logo-dark.png" : "/logo-light.png"
   );
 
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1024);
+  const { isSmallScreen } = useBreakpoints();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuButtonVisible, setIsMenuButtonVisible] = useState(isSmallScreen);
 
-
   useEffect(() => {
     localStorage.setItem("darkMode", String(isDarkMode));
-    const newLogoImage = isDarkMode ? "icons/logo-dark.png" : "icons/logo-light.png";
+    const newLogoImage = isDarkMode
+      ? "icons/logo-dark.png"
+      : "icons/logo-light.png";
     setLogoImage(newLogoImage);
   }, [isDarkMode]);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 1024);
-      setIsMenuButtonVisible(window.innerWidth < 1024);
-      if (window.innerWidth >= 1024) {
-        setIsModalOpen(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+    if (isSmallScreen) {
+      setIsMenuButtonVisible(true);
+    } else {
+      setIsModalOpen(false);
+      setIsMenuButtonVisible(false);
+    }
+  }, [isSmallScreen]);
 
   const handleModalToggle = () => {
     setIsModalOpen(!isModalOpen);
   };
-
 
   const handleDarkModeToggle = () => {
     setIsDarkMode(!isDarkMode);
@@ -94,12 +87,10 @@ export function Upload() {
     }
   };
 
-
-
   return (
     <>
       <Global styles={isDarkMode ? darkStyles : lightStyles} />
-      <div className="navbar">
+      <div className="main">
         <div className="navbar-top" role="navigation">
           <div className="navbar-brand">
             <Link to="/" className="navbar-item">
@@ -108,7 +99,7 @@ export function Upload() {
             </Link>
           </div>
           <div className="navbar-menu">
-          <div className="navbar-start">
+            <div className="navbar-start">
               {!isSmallScreen && (
                 <MenuItems
                   isSmallScreen={isSmallScreen}
@@ -117,7 +108,7 @@ export function Upload() {
                 />
               )}
             </div>
-          <NavbarEnd
+            <NavbarEnd
               isMenuButtonVisible={isMenuButtonVisible}
               isSmallScreen={isSmallScreen}
               handleModalToggle={handleModalToggle}
@@ -127,7 +118,16 @@ export function Upload() {
           </div>
         </div>
 
-        <Modal isModalOpen={isModalOpen} menuItems={<MenuItems isSmallScreen={isSmallScreen} isDarkMode={isDarkMode} handleDarkModeToggle={handleDarkModeToggle} />} />
+        <Modal
+          isModalOpen={isModalOpen}
+          menuItems={
+            <MenuItems
+              isSmallScreen={isSmallScreen}
+              isDarkMode={isDarkMode}
+              handleDarkModeToggle={handleDarkModeToggle}
+            />
+          }
+        />
         <section className="cat">
           <div className="title-centered">
             <h1 className="title">Add your cat</h1>
@@ -147,7 +147,7 @@ export function Upload() {
             <img src={uploadedCatPhoto} alt="Uploaded Cat" />
           )}
         </div>
-        <Footer />
+        <Footer isDarkMode={isDarkMode} />
       </div>
     </>
   );

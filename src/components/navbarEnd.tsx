@@ -7,7 +7,7 @@ const NavbarEnd = ({ isMenuButtonVisible, isSmallScreen, handleModalToggle, hand
       {isMenuButtonVisible && (
         <button className="is-dark" onClick={handleModalToggle}>
           <img
-            src={process.env.PUBLIC_URL + "/fish-bone-menu.png"}
+            src={process.env.PUBLIC_URL + "icons/fish-bone-menu.png"}
             alt="Icon"
           />
         </button>

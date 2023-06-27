@@ -9,6 +9,8 @@ import Footer from "../components/footer";
 import { darkStyles } from "../styles/darkStyles";
 import { lightStyles } from "../styles/lightStyles";
 
+import { useBreakpoints } from "../hooks/useBreakpoints";
+
 
 const catInfoData = [
   {
@@ -41,8 +43,8 @@ export function About() {
   const [logoImage, setLogoImage] = useState(
     isDarkMode ? "/logo-dark.png" : "/logo-light.png"
   );
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1024);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  const { isSmallScreen } = useBreakpoints();  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuButtonVisible, setIsMenuButtonVisible] = useState(isSmallScreen);
 
   useEffect(() => {
@@ -51,21 +53,14 @@ export function About() {
     setLogoImage(newLogoImage);
   }, [isDarkMode]);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 1024);
-      setIsMenuButtonVisible(window.innerWidth < 1024);
-      if (window.innerWidth >= 1024) {
-        setIsModalOpen(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+   useEffect(() => {
+    if (isSmallScreen) {
+      setIsMenuButtonVisible(true);
+    } else {
+      setIsModalOpen(false);
+      setIsMenuButtonVisible(false);
+    }
+  }, [isSmallScreen]);
 
   const handleDarkModeToggle = () => {
     setIsDarkMode(!isDarkMode);
@@ -79,7 +74,7 @@ export function About() {
   return (
     <>
       <Global styles={isDarkMode ? darkStyles : lightStyles} />
-      <div className="navbar">
+      <div className="main">
         <div className="navbar-top" role="navigation">
           <div className="navbar-brand">
             <Link to="/" className="navbar-item">
@@ -94,6 +89,7 @@ export function About() {
                   isSmallScreen={isSmallScreen}
                   isDarkMode={isDarkMode}
                   handleDarkModeToggle={handleDarkModeToggle}
+              
                 />
               )}
             </div>
@@ -135,7 +131,7 @@ export function About() {
             </div>
           ))}
         </div>
-        <Footer />
+        <Footer isDarkMode={isDarkMode} />
       </div>
     </>
   );
