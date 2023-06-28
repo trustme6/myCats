@@ -1,25 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { storage } from "../FirebaseApp";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { Global } from "@emotion/react";
 
-import { useBreakpoints } from "../hooks/useBreakpoints";
-
 import Footer from "../components/footer";
 import { darkStyles } from "../styles/darkStyles";
 import { lightStyles } from "../styles/lightStyles";
 import { NavbarTop } from "../components/navbarTop";
+import { ThemeContext } from "../contexts/themeContext";
 
 export const Home = () => {
   const [randomCatPhoto, setRandomCatPhoto] = useState("");
   const [randomCatPhotoKey, setRandomCatPhotoKey] = useState("");
-  const [isDarkMode, setIsDarkMode] = useState(
-    localStorage.getItem("darkMode") === "true"
-  );
-
-  const { isSmallScreen } = useBreakpoints();
-
+  const { isDarkMode } = useContext(ThemeContext);
   const [catPhotos, setCatPhotos] = useState<string[]>([]);
 
   const getRandomCatPhoto = async () => {
@@ -46,9 +40,6 @@ export const Home = () => {
     getCatPhotos();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("darkMode", String(isDarkMode));
-  }, [isDarkMode]);
   useEffect(() => {
     getRandomCatPhoto();
   }, [catPhotos.length]);

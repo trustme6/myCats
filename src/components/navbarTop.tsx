@@ -7,16 +7,16 @@ import { useBreakpoints } from "../hooks/useBreakpoints";
 import Modal from "./modal";
 
 export const NavbarTop = () => {
-  const { themeName, setThemeName } = useContext(ThemeContext);
-  const isDarkMode = themeName === "darkMode";
+  const { toggleTheme, isDarkMode } = useContext(ThemeContext);
+ 
   const logoImage = isDarkMode ? "icons/logo-dark.png" : "icons/logo-light.png";
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { isSmallScreen } = useBreakpoints();
   const [isMenuButtonVisible, setIsMenuButtonVisible] = useState(isSmallScreen);
 
   const handleDarkModeToggle = () => {
-    if (setThemeName !== undefined) {
-      setThemeName(themeName === "darkMode" ? " lightMode " : "darkMode");
+    if (toggleTheme !== undefined) {
+      toggleTheme();
     }
   };
   const handleModalToggle = () => {

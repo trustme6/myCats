@@ -22,9 +22,17 @@ const router = createBrowserRouter([
 
 
 export const App = () =>{
- const [themeName, setThemeName] = useState ("lightMode");
-      return(
-<ThemeContext.Provider value = {{themeName,setThemeName}}>
+  const initialTheme = localStorage.getItem("themeName") || "lightMode";
+ const [themeName, setThemeName] = useState (initialTheme);
+ const isDarkMode = themeName === "darkMode";
+const toggleTheme = ()=>{
+  const newThemeName = themeName === "darkMode" ? " lightMode " : "darkMode";
+  setThemeName(newThemeName);
+  localStorage.setItem("themeName",newThemeName);  
+}
+
+return(
+<ThemeContext.Provider value = {{themeName,toggleTheme,isDarkMode}}>
     <RouterProvider router={router} />
     </ThemeContext.Provider>
       )
