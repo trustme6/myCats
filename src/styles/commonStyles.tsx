@@ -78,9 +78,7 @@ export const commonStyles = css`
     text-decoration: none;
   }
 
-  .navbar-item:hover {
-    color: #3273dc;
-  }
+  
 
   .navbar-item img {
     max-height: 1.75rem;
@@ -91,9 +89,7 @@ export const commonStyles = css`
     text-decoration: none;
   }
 
-  .navbar-item a:hover {
-    color: #3273dc;
-  }
+ 
 
   .is-dark {
     background-color: #2f2f2f;
