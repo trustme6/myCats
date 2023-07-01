@@ -13,7 +13,7 @@ import { useBreakpoints } from "../hooks/useBreakpoints";
 const catInfoData = [
   {
     name: "Shishka",
-    about: "A silence killer",
+    about: "A silent killer",
     image: "/images/shishka-1.jpg",
     description:
       "She will always support in difficult times. She has a complex character that makes life more interesting. Can scare a sudden appearance from around the corner. The oldest of the cats.",

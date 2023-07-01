@@ -11,8 +11,12 @@ import styled from "@emotion/styled";
 
 
 const Wrapper = styled.nav<{isDarkMode: boolean}>`
+
+
+
 .navbar-item {
   background-color: ${props => props.isDarkMode ? 'hsl(0, 0%, 14%)' : '#fff;'};
+  color: ${props => props.isDarkMode ? 'white' : '#4a4a4a'};
 }
 
 .navbar-item:visited {
@@ -40,7 +44,7 @@ const Wrapper = styled.nav<{isDarkMode: boolean}>`
 export const NavbarTop = () => {
   const { toggleTheme, isDarkMode } = useContext(ThemeContext);
  
-  const logoImage = isDarkMode ? "icons/logo-dark.png" : "icons/logo-light.png";
+  const logoImage = isDarkMode ? "/icons/logo-dark.png" : "/icons/logo-light.png";
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { isSmallScreen } = useBreakpoints();
   const [isMenuButtonVisible, setIsMenuButtonVisible] = useState(isSmallScreen);

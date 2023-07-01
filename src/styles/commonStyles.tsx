@@ -16,6 +16,7 @@ export const commonStyles = css`
     flex: 1;
     padding-top: 52px;
     height: 100vh;
+    
   }
 
   .navbar-top {
@@ -34,6 +35,7 @@ export const commonStyles = css`
     flex-grow: 1;
     flex-shrink: 0;
     align-items: stretch;
+    
   }
 
   .navbar-menu img {
@@ -78,8 +80,6 @@ export const commonStyles = css`
     text-decoration: none;
   }
 
-  
-
   .navbar-item img {
     max-height: 1.75rem;
   }
@@ -88,8 +88,6 @@ export const commonStyles = css`
     font-size: 16px;
     text-decoration: none;
   }
-
- 
 
   .is-dark {
     background-color: #2f2f2f;
@@ -153,7 +151,7 @@ export const commonStyles = css`
   @media (max-width: 1024px) {
     .text-centered img {
       height: 30rem;
-      width: 30rem;
+      width: 20rem;
     }
   }
 
@@ -204,7 +202,7 @@ export const commonStyles = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 2rem;
+    
   }
 
   .content-container .cat-info .cat-image img {

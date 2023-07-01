@@ -18,7 +18,9 @@ const router = createBrowserRouter([
       path: "/upload",
       element: <Upload />,
     },
-  ]);
+  ], {
+    basename: '/myCats'
+  });
 
 
 export const App = () =>{

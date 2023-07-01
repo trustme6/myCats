@@ -3,7 +3,7 @@ import React from "react";
 
 
 const Wrapper = styled.footer<{isDarkMode: boolean}>`
-  padding: 16px;
+  padding: 8px;
   position: relative;
   bottom:0;
   margin-top: auto; 

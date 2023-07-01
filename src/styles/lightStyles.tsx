@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import commonStyles from "./commonStyles";
 export const lightStyles = css`
   ${commonStyles}
-
+  
   .title {
     color: #363636;
   }
