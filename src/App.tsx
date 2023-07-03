@@ -1,11 +1,11 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createHashRouter } from "react-router-dom";
 import { Home } from "./routes/Home";
 import { About } from "./routes/About";
-import { Upload } from "./routes/Upload";
+//import { Upload } from "./routes/Upload";
 import React, { useState } from "react";
 import { ThemeContext } from "./contexts/themeContext";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
     {
       path: "/",
       element: <Home />,
@@ -13,14 +13,12 @@ const router = createBrowserRouter([
     {
       path: "/about",
       element: <About />,
-    },
-    {
+    }
+  /*  {
       path: "/upload",
       element: <Upload />,
-    },
-  ], {
-    basename: '/myCats'
-  });
+    },*/
+  ]);
 
 
 export const App = () =>{

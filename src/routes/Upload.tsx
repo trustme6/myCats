@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+/*import React, { useState, useContext } from "react";
 
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "../FirebaseApp";
@@ -79,3 +79,4 @@ export function Upload() {
     </>
   );
 }
+*/

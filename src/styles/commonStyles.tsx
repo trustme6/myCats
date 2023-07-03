@@ -16,7 +16,6 @@ export const commonStyles = css`
     flex: 1;
     padding-top: 52px;
     height: 100vh;
-    
   }
 
   .navbar-top {
@@ -35,7 +34,6 @@ export const commonStyles = css`
     flex-grow: 1;
     flex-shrink: 0;
     align-items: stretch;
-    
   }
 
   .navbar-menu img {
@@ -72,7 +70,7 @@ export const commonStyles = css`
     padding: 0.5rem 0.75rem;
     position: relative;
     transition: background-color 0.3s ease;
-    font-family: "Segoe UI";
+    font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     text-decoration: none;
   }
 
@@ -116,7 +114,7 @@ export const commonStyles = css`
 
   .is-dark strong {
     font-size: 16px;
-    font-family: "Segoe UI";
+    font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     color: #f5f5f5;
   }
 
@@ -156,7 +154,7 @@ export const commonStyles = css`
   }
 
   .another-cat {
-    font-family: "Segoe UI";
+    font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     background-color: #3273dc;
     border-color: transparent;
     color: #fff;
@@ -202,7 +200,14 @@ export const commonStyles = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+    margin-right: 2rem;
+  }
+  @media (max-width: 1024px) {
+    .content-container .cat-info .cat-image {
+       display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
   }
 
   .content-container .cat-info .cat-image img {

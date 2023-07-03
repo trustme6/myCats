@@ -11,9 +11,6 @@ const MenuItems = ({ isSmallScreen, isDarkMode, handleDarkModeToggle }) => {
       <Link to="/about" className="navbar-item">
         About
       </Link>
-      <Link to="/upload" className="navbar-item">
-        Upload
-      </Link>
       {isSmallScreen && (
         <button className="is-dark" onClick={handleDarkModeToggle}>
           <strong>{isDarkMode ? "Light mode" : "Dark mode"}</strong>
